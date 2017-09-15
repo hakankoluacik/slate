@@ -122,3 +122,7 @@ passcode | true | The user's passcode <b>or</b> fake passcode (must be 4 digits)
 <aside class="notice">
 There is a validation for <b>email</b> and <b>passcode</b> fields. <b>passcode</b> field must be 4 digits. If any validation error occurs then <b>"status"</b> key for response will contain <b>"fail"</b> value and <b>"data"</b> key will contain correspond field names with description about the validation errors as an array.
 </aside>
+
+# Albums
+
+## Will be here soon..
