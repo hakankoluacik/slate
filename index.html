@@ -236,7 +236,16 @@
             <a href="#albums" class="toc-h1 toc-link" data-title="Albums">Albums</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#will-be-here-soon" class="toc-h2 toc-link" data-title="Albums">Will be here soon..</a>
+                    <a href="#create" class="toc-h2 toc-link" data-title="Albums">Create</a>
+                  </li>
+                  <li>
+                    <a href="#read" class="toc-h2 toc-link" data-title="Albums">Read</a>
+                  </li>
+                  <li>
+                    <a href="#update" class="toc-h2 toc-link" data-title="Albums">Update</a>
+                  </li>
+                  <li>
+                    <a href="#delete" class="toc-h2 toc-link" data-title="Albums">Delete</a>
                   </li>
               </ul>
           </li>
@@ -264,17 +273,17 @@
 </blockquote>
 <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"http://138.197.190.67/api/v1.0/{some_resource_needs_auth}"</span>
-  -H <span class="s2">"api_token: meowmeowmeow"</span>
+  -H <span class="s2">"token: meowmeowmeow"</span>
 </code></pre>
 <blockquote>
 <p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
 </blockquote>
 
-<p>SafeLock API uses <strong>api_token</strong> parameter to allow access to the API.</p>
+<p>SafeLock API uses <strong>token</strong> parameter to allow access to the API.</p>
 
-<p>SafeLock API expects for the <strong>api_token</strong> to be included in all API requests (except Login and Register endpoints) to the server in a header that looks like the following:</p>
+<p>SafeLock API expects for the <strong>token</strong> to be included in all API requests (except Login and Register endpoints) to the server in a header that looks like the following:</p>
 
-<p><code>api_token: meowmeowmeow</code></p>
+<p><code>token: meowmeowmeow</code></p>
 
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your user API key.
@@ -288,12 +297,12 @@ You must replace <code>meowmeowmeow</code> with your user API key.
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"furkan@furkan.com"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"api_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ed9vT6zks25TyoV5YEPmd0Nk2ygiIvSUwA6VKyI8vcDcFI9D8zSMwmU4gxyE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ed9vT6zks25TyoV5YEPmd0Nk2ygiIvSUwA6VKyI8vcDcFI9D8zSMwmU4gxyE"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint registers the user and returns a unique <strong>api_token</strong> with <strong>id</strong> and <strong>email</strong> information for the registered user. This token will be used for identify the user for every request which will be made by a user.</p>
+<p>This endpoint registers the user and returns a unique <strong>token</strong> with <strong>id</strong> and <strong>email</strong> information for the registered user. This token will be used for identify the user for every request which will be made by a user.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST http://138.197.190.67/api/v1.0/register</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
@@ -330,13 +339,13 @@ There is a validation for <b>email</b> and <b>passcode</b> fields. <b>passcode</
         </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
             </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"furkan@furkan.com"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"api_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ed9vT6zks25TyoV5YEPmd0Nk2ygiIvSUwA6VKyI8vcDcFI9D8zSMwmU4gxyE"</span><span class="w">
+            </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ed9vT6zks25TyoV5YEPmd0Nk2ygiIvSUwA6VKyI8vcDcFI9D8zSMwmU4gxyE"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="s2">"fake_passcode"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint returns the user&#39;s <strong>api_token</strong>, <strong>id</strong>, <strong>email</strong> for given credentials and <strong>fake_passcode</strong> login status as bool. If passcode field contains fake passcode then API will recognize it and it will return fake_passcode parameter as true otherwise will return as false.</p>
+<p>This endpoint returns the user&#39;s <strong>token</strong>, <strong>id</strong>, <strong>email</strong> for given credentials and <strong>fake_passcode</strong> login status as bool. If passcode field contains fake passcode then API will recognize it and it will return fake_passcode parameter as true otherwise will return as false.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>POST http://138.197.190.67/api/v1.0/login</code></p>
 <h3 id='query-parameters-2'>Query Parameters</h3>
@@ -362,7 +371,148 @@ There is a validation for <b>email</b> and <b>passcode</b> fields. <b>passcode</
 <aside class="notice">
 There is a validation for <b>email</b> and <b>passcode</b> fields. <b>passcode</b> field must be 4 digits. If any validation error occurs then <b>"status"</b> key for response will contain <b>"fail"</b> value and <b>"data"</b> key will contain correspond field names with description about the validation errors as an array.
 </aside>
-<h1 id='albums'>Albums</h1><h2 id='will-be-here-soon'>Will be here soon..</h2><h1 id='errors'>Errors</h1>
+<h1 id='albums'>Albums</h1><h2 id='create'>Create</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"http://138.197.190.67/api/v1.0/albums"</span> -F <span class="nv">name</span><span class="o">=</span><span class="s2">"Test album"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test album"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-19 07:14:04"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-19 07:14:04"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a new album with given name and returns the new album&#39;s information if creation was successful.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST http://138.197.190.67/api/v1.0/albums</code></p>
+<h3 id='query-parameters-3'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>true</td>
+<td>Album name (max 255 character)</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+There is a validation for <b>name</b> field. <b>name</b> fields is required and it can be max 255 characters. If any validation error occurs then <b>"status"</b> key for response will contain <b>"fail"</b> value and <b>"data"</b> key will contain correspond field names with description about the validation errors as an array.
+</aside>
+<h2 id='read'>Read</h2><h3 id='get-all-albums-of-user'>Get All Albums of User</h3>
+<p>This will return all albums of the user</p>
+<pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"http://138.197.190.67/api/v1.0/albums"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test albümü 1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:32:12"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-19 07:36:28"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test albümü 2"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:34:05"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:34:05"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET http://138.197.190.67/api/v1.0/albums</code></p>
+<h3 id='query-parameters-4'>Query Parameters</h3>
+<p>none</p>
+
+<aside class="notice">
+If the user doesn't have any albums then response <b>data</b> key will contain an empty array (<b>[]</b>) and <b>"status"</b> key will be <b>"success"</b>
+</aside>
+<h3 id='get-spesific-album-with-it-39-s-detail'>Get Spesific Album With It&#39;s detail</h3><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"http://138.197.190.67/api/v1.0/albums/3"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test albümü 3"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:37:04"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:37:04"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves one single album with details.</p>
+
+<p><code>GET http://138.197.190.67/api/v1.0/albums/{ID}</code></p>
+<h3 id='query-parameters-5'>Query Parameters</h3>
+<p>none</p>
+
+<aside class="notice">
+If the album doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a album"</b>
+</aside>
+<h2 id='update'>Update</h2><pre class="highlight shell tab-shell"><code>curl -X PATCH <span class="s2">"http://138.197.190.67/api/v1.0/albums/1"</span> -F <span class="nv">name</span><span class="o">=</span><span class="s2">"New name"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New name"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:32:12"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-19 07:36:28"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint updates the album with given id in url and returns updated album&#39;s info.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>PATCH http://138.197.190.67/api/v1.0/albums/{ID}</code></p>
+<h3 id='query-parameters-6'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>true</td>
+<td>Album name (max 255 character)</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Like creating albums, updating albums also have same validation.
+</aside>
+<h2 id='delete'>Delete</h2><pre class="highlight shell tab-shell"><code>curl -X DELETE <span class="s2">"http://138.197.190.67/api/v1.0/albums/5"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint deletes the album with given id in url.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>DELETE http://138.197.190.67/api/v1.0/albums/{ID}</code></p>
+<h1 id='errors'>Errors</h1>
 <p>The SafeLock API uses the following error codes:</p>
 
 <table><thead>
