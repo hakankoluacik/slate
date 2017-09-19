@@ -296,6 +296,10 @@ This endpoint deletes the album with given id in url.
 
 `DELETE http://138.197.190.67/api/v1.0/albums/{ID}`
 
+<aside class="notice">
+If the album already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a album"</b>
+</aside>
+
 
 
 
