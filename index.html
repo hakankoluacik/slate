@@ -512,6 +512,10 @@ Like creating albums, updating albums also have same validation.
 <p>This endpoint deletes the album with given id in url.</p>
 <h3 id='http-request-6'>HTTP Request</h3>
 <p><code>DELETE http://138.197.190.67/api/v1.0/albums/{ID}</code></p>
+
+<aside class="notice">
+If the album already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a album"</b>
+</aside>
 <h1 id='errors'>Errors</h1>
 <p>The SafeLock API uses the following error codes:</p>
 
