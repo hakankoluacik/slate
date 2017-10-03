@@ -250,6 +250,14 @@
               </ul>
           </li>
           <li>
+            <a href="#photos" class="toc-h1 toc-link" data-title="Photos">Photos</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-2" class="toc-h2 toc-link" data-title="Photos">Create</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </div>
@@ -408,7 +416,7 @@ There is a validation for <b>email</b> and <b>passcode</b> fields. <b>passcode</
 There is a validation for <b>name</b> field. <b>name</b> fields is required and it can be max 255 characters. If any validation error occurs then <b>"status"</b> key for response will contain <b>"fail"</b> value and <b>"data"</b> key will contain correspond field names with description about the validation errors as an array.
 </aside>
 <h2 id='read'>Read</h2><h3 id='get-all-albums-of-user'>Get All Albums of User</h3>
-<p>This will return all albums of the user</p>
+<p>This will return all albums of the user with <strong>thumb_url</strong> (thumbs are 160x160 and thumbs will be the last photo of the album. if there is no photo on the album then <strong>thumb_url</strong> parameter will be <strong><em>null</em></strong>)</p>
 <pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"http://138.197.190.67/api/v1.0/albums"</span>
 </code></pre>
 <blockquote>
@@ -421,13 +429,15 @@ There is a validation for <b>name</b> field. <b>name</b> fields is required and 
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test albümü 1"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:32:12"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-19 07:36:28"</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-19 07:36:28"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.us-east-2.amazonaws.com/safelock/1/1/thumb/300771d9d4566d74e9615096f76dec788881c4b6.jpg"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
             </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test albümü 2"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:34:05"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:34:05"</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:34:05"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -515,6 +525,54 @@ Like creating albums, updating albums also have same validation.
 
 <aside class="notice">
 If the album already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a album"</b>
+</aside>
+<h1 id='photos'>Photos</h1><h2 id='create-2'>Create</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"http://138.197.190.67/api/v1.0/photos"</span> -F <span class="nv">photo_file</span><span class="o">=</span>FILE -F <span class="nv">album_id</span><span class="o">=</span><span class="s2">"1"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"album_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.us-east-2.amazonaws.com/safelock/1/1/d9b115352f8e0357263f38b8e0941fefc3c56c1d.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.us-east-2.amazonaws.com/safelock/1/1/thumb/d9b115352f8e0357263f38b8e0941fefc3c56c1d.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sha1_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d9b115352f8e0357263f38b8e0941fefc3c56c1d"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"original_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5629_10152098364014870_1827540468_n.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"filesize"</span><span class="p">:</span><span class="w"> </span><span class="mi">53243</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hash_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d9b115352f8e0357263f38b8e0941fefc3c56c1d.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-03 12:58:33"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-03 12:58:33"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a new photo in given album and returns the new photos&#39;s information if creation was successful.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST http://138.197.190.67/api/v1.0/photos</code></p>
+<h3 id='query-parameters-7'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>album_id</td>
+<td>true</td>
+<td>Album id that needs to be saved in</td>
+</tr>
+<tr>
+<td>photo_file</td>
+<td>true</td>
+<td> Photo file</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+There is a special validation for photo_file. If the file already uploaded before then the <b>"status"</b> key will <b>"fail"</b>. And <b>"data"</b> key will contain "You already uploaded this photo before" message. 
 </aside>
 <h1 id='errors'>Errors</h1>
 <p>The SafeLock API uses the following error codes:</p>
