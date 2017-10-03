@@ -166,7 +166,7 @@ There is a validation for <b>name</b> field. <b>name</b> fields is required and 
 
 ### Get All Albums of User
 
-This will return all albums of the user
+This will return all albums of the user with **thumb_url** (thumbs are 160x160 and thumbs will be the last photo of the album. if there is no photo on the album then **thumb_url** parameter will be ***null***)
 
 ```shell
 curl -X GET "http://138.197.190.67/api/v1.0/albums"
@@ -182,13 +182,15 @@ curl -X GET "http://138.197.190.67/api/v1.0/albums"
             "id": 1,
             "name": "Test albümü 1",
             "created_at": "2017-09-13 13:32:12",
-            "updated_at": "2017-09-19 07:36:28"
+            "updated_at": "2017-09-19 07:36:28",
+            "thumb_url": "https://s3.us-east-2.amazonaws.com/safelock/1/1/thumb/300771d9d4566d74e9615096f76dec788881c4b6.jpg"
         },
         {
             "id": 2,
             "name": "Test albümü 2",
             "created_at": "2017-09-13 13:34:05",
-            "updated_at": "2017-09-13 13:34:05"
+            "updated_at": "2017-09-13 13:34:05",
+            "thumb_url": null
         }
     ]
 }
@@ -300,6 +302,50 @@ This endpoint deletes the album with given id in url.
 If the album already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a album"</b>
 </aside>
 
+# Photos
+
+## Create
+
+```shell
+curl -X POST "http://138.197.190.67/api/v1.0/photos" -F photo_file=FILE -F album_id="1"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": {
+        "user_id": 1,
+        "album_id": 1,
+        "url": "https://s3.us-east-2.amazonaws.com/safelock/1/1/d9b115352f8e0357263f38b8e0941fefc3c56c1d.jpg",
+        "thumb_url": "https://s3.us-east-2.amazonaws.com/safelock/1/1/thumb/d9b115352f8e0357263f38b8e0941fefc3c56c1d.jpg",
+        "sha1_hash": "d9b115352f8e0357263f38b8e0941fefc3c56c1d",
+        "original_name": "5629_10152098364014870_1827540468_n.jpg",
+        "filesize": 53243,
+        "hash_name": "d9b115352f8e0357263f38b8e0941fefc3c56c1d.jpg",
+        "updated_at": "2017-10-03 12:58:33",
+        "created_at": "2017-10-03 12:58:33",
+        "id": 5
+    }
+}
+```
+
+This endpoint creates a new photo in given album and returns the new photos's information if creation was successful.
 
 
 
+### HTTP Request
+
+`POST http://138.197.190.67/api/v1.0/photos`
+
+### Query Parameters
+
+Parameter | required | Description
+--------- | ------- | -----------
+album_id | true | Album id that needs to be saved in
+photo_file | true | Photo file
+
+<aside class="notice">
+There is a special validation for photo_file. If the file already uploaded before then the <b>"status"</b> key will <b>"fail"</b>. And <b>"data"</b> key will contain "You already uploaded this photo before" message. 
+</aside>
