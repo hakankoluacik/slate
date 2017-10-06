@@ -219,10 +219,30 @@ curl -X GET "http://138.197.190.67/api/v1.0/albums/3"
 {
     "status": "success",
     "data": {
-        "id": 3,
-        "name": "Test albümü 3",
-        "created_at": "2017-09-13 13:37:04",
-        "updated_at": "2017-09-13 13:37:04"
+        "id": 1,
+        "name": "Thailand",
+        "created_at": "2017-10-06 07:44:52",
+        "updated_at": "2017-10-06 07:44:52",
+        "photos": [
+            {
+                "id": 1,
+                "original_name": "buddha.jpg",
+                "hash_name": "361036ff6adb3dd6d51c6d82c0166761ad1a0060.jpg",
+                "url": "https://s3.us-east-2.amazonaws.com/safelock/1/1/361036ff6adb3dd6d51c6d82c0166761ad1a0060.jpg",
+                "thumb_url": "https://s3.us-east-2.amazonaws.com/safelock/1/1/thumb/361036ff6adb3dd6d51c6d82c0166761ad1a0060.jpg",
+                "filesize": "498523",
+                "created_at": "2017-10-06 07:47:29"
+            },
+            {
+                "id": 2,
+                "original_name": "pattaya.jpg",
+                "hash_name": "86da7f1d21d51cb2ef08d755d78dbead0ea7febf.jpg",
+                "url": "https://s3.us-east-2.amazonaws.com/safelock/1/1/86da7f1d21d51cb2ef08d755d78dbead0ea7febf.jpg",
+                "thumb_url": "https://s3.us-east-2.amazonaws.com/safelock/1/1/thumb/86da7f1d21d51cb2ef08d755d78dbead0ea7febf.jpg",
+                "filesize": "182550",
+                "created_at": "2017-10-06 07:48:02"
+            }
+        ]
     }
 }
 ```
@@ -292,7 +312,7 @@ curl -X DELETE "http://138.197.190.67/api/v1.0/albums/5"
 }
 ```
 
-This endpoint deletes the album with given id in url.
+This endpoint deletes the album and it's all photos with given album id in url.
 
 ### HTTP Request
 
@@ -348,4 +368,29 @@ photo_file | true | Photo file
 
 <aside class="notice">
 There is a special validation for photo_file. If the file already uploaded before then the <b>"status"</b> key will <b>"fail"</b>. And <b>"data"</b> key will contain "You already uploaded this photo before" message. 
+</aside>
+
+## Delete
+
+```shell
+curl -X DELETE "http://138.197.190.67/api/v1.0/photos/5"
+````
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": null
+}
+```
+
+This endpoint deletes the photo with given id in url.
+
+### HTTP Request
+
+`DELETE http://138.197.190.67/api/v1.0/photos/{ID}`
+
+<aside class="notice">
+If the photo already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a photo"</b>
 </aside>
