@@ -255,6 +255,9 @@
                   <li>
                     <a href="#create-2" class="toc-h2 toc-link" data-title="Photos">Create</a>
                   </li>
+                  <li>
+                    <a href="#delete-2" class="toc-h2 toc-link" data-title="Photos"> Delete</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -457,10 +460,30 @@ If the user doesn't have any albums then response <b>data</b> key will contain a
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test albümü 3"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:37:04"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-13 13:37:04"</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thailand"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-06 07:44:52"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-06 07:44:52"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"photos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"original_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buddha.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"hash_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"361036ff6adb3dd6d51c6d82c0166761ad1a0060.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.us-east-2.amazonaws.com/safelock/1/1/361036ff6adb3dd6d51c6d82c0166761ad1a0060.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.us-east-2.amazonaws.com/safelock/1/1/thumb/361036ff6adb3dd6d51c6d82c0166761ad1a0060.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"filesize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"498523"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-06 07:47:29"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"original_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pattaya.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"hash_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"86da7f1d21d51cb2ef08d755d78dbead0ea7febf.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.us-east-2.amazonaws.com/safelock/1/1/86da7f1d21d51cb2ef08d755d78dbead0ea7febf.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.us-east-2.amazonaws.com/safelock/1/1/thumb/86da7f1d21d51cb2ef08d755d78dbead0ea7febf.jpg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"filesize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"182550"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-06 07:48:02"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -519,7 +542,7 @@ Like creating albums, updating albums also have same validation.
     </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint deletes the album with given id in url.</p>
+<p>This endpoint deletes the album and it&#39;s all photos with given album id in url.</p>
 <h3 id='http-request-6'>HTTP Request</h3>
 <p><code>DELETE http://138.197.190.67/api/v1.0/albums/{ID}</code></p>
 
@@ -573,6 +596,23 @@ If the album already doesn't exist then response <b>"status"</b> key will <b>"fa
 
 <aside class="notice">
 There is a special validation for photo_file. If the file already uploaded before then the <b>"status"</b> key will <b>"fail"</b>. And <b>"data"</b> key will contain "You already uploaded this photo before" message. 
+</aside>
+<h2 id='delete-2'> Delete</h2><pre class="highlight shell tab-shell"><code>curl -X DELETE <span class="s2">"http://138.197.190.67/api/v1.0/photos/5"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint deletes the photo with given id in url.</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>DELETE http://138.197.190.67/api/v1.0/photos/{ID}</code></p>
+
+<aside class="notice">
+If the photo already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a photo"</b>
 </aside>
 <h1 id='errors'>Errors</h1>
 <p>The SafeLock API uses the following error codes:</p>
