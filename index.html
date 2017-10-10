@@ -261,6 +261,23 @@
               </ul>
           </li>
           <li>
+            <a href="#notes" class="toc-h1 toc-link" data-title="Notes">Notes</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-3" class="toc-h2 toc-link" data-title="Notes">Create</a>
+                  </li>
+                  <li>
+                    <a href="#read-2" class="toc-h2 toc-link" data-title="Notes">Read</a>
+                  </li>
+                  <li>
+                    <a href="#update-2" class="toc-h2 toc-link" data-title="Notes">Update</a>
+                  </li>
+                  <li>
+                    <a href="#delete-3" class="toc-h2 toc-link" data-title="Notes"> Delete</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </div>
@@ -595,7 +612,7 @@ If the album already doesn't exist then response <b>"status"</b> key will <b>"fa
 </tbody></table>
 
 <aside class="notice">
-There is a special validation for photo_file. If the file already uploaded before then the <b>"status"</b> key will <b>"fail"</b>. And <b>"data"</b> key will contain "You already uploaded this photo before" message. 
+There is a special validation for photo_file. If the file already uploaded before then the <b>"status"</b> key will <b>"fail"</b>. And <b>"data"</b> key will contain "You already uploaded this photo before" message.
 </aside>
 <h2 id='delete-2'> Delete</h2><pre class="highlight shell tab-shell"><code>curl -X DELETE <span class="s2">"http://138.197.190.67/api/v1.0/photos/5"</span>
 </code></pre>
@@ -613,6 +630,176 @@ There is a special validation for photo_file. If the file already uploaded befor
 
 <aside class="notice">
 If the photo already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a photo"</b>
+</aside>
+<h1 id='notes'>Notes</h1><h2 id='create-3'>Create</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"http://138.197.190.67/api/v1.0/notes"</span> -F <span class="nv">title</span><span class="o">=</span><span class="s2">"My passwords"</span> -F <span class="nv">content</span><span class="o">=</span><span class="s2">"Facebook 123456"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My passwords"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Facebook 123456"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 07:31:16"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 07:31:16"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a new note and returns the new note&#39;s information if creation was successful.</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>POST http://138.197.190.67/api/v1.0/notes</code></p>
+<h3 id='query-parameters-8'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>false</td>
+<td>The note&#39;s title (optional, max 255 character)</td>
+</tr>
+<tr>
+<td>content</td>
+<td>true</td>
+<td> Note content (required)</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+There is a validation for <b>content</b> field. <b>content</b> fields is required. If any validation error occurs then <b>"status"</b> key for response will contain <b>"fail"</b> value and <b>"data"</b> key will contain correspond field names with description about the validation errors as an array. <b>title</b> field is optional, there is no validation for this field. If title field is not defined, then the value of title in creation response will contain <i><b>null</b></i>.
+</aside>
+<h2 id='read-2'>Read</h2><h3 id='get-all-notes-of-user'>Get All Notes of User</h3>
+<p>This will return all notes of the user. This endpoint&#39;s purpose is listing notes on user side. For this purpose,
+note <b>&quot;content&quot;</b> field will be limited with 35 characters in response. This 35 character content field can be used for tableview title or you can use <b>&quot;title&quot;</b> field as tableview title. But remember title field is optional and it can be null.</p>
+<pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"http://138.197.190.67/api/v1.0/notes"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lorem ipsum"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lorem ipsum dolor sit amet, consect..."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 08:55:57"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 08:55:57"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proin facilisis"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proin facilisis tellus lacus, ac lo..."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 08:56:11"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 08:56:11"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phasellus nec ex volutpat, euismod ..."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 08:56:23"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 08:56:23"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-10'>HTTP Request</h3>
+<p><code>GET http://138.197.190.67/api/v1.0/notes</code></p>
+<h3 id='query-parameters-9'>Query Parameters</h3>
+<p>none</p>
+
+<aside class="notice">
+If the user doesn't have any notes then response <b>data</b> key will contain an empty array (<b>[]</b>) and <b>"status"</b> key will be <b>"success"</b> Therefore title field can be <b>null</b>. Because this field is optional when creating note.
+</aside>
+<h3 id='get-specific-note-of-user'>Get Specific Note of User</h3>
+<p>This will return specific note of user.</p>
+<pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"http://138.197.190.67/api/v1.0/notes/{ID}"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proin facilisis"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Proin facilisis tellus lacus, ac lobortis ipsum euismod vel. Nullam dolor augue, lobortis ut enim nec, blandit blandit dui. Nullam tincidunt lacinia purus, quis rutrum mauris facilisis in. "</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 08:56:11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 08:56:11"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-11'>HTTP Request</h3>
+<p><code>GET http://138.197.190.67/api/v1.0/notes/{ID}</code></p>
+<h3 id='query-parameters-10'>Query Parameters</h3>
+<p>none</p>
+
+<aside class="notice">
+If the note doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a note"</b>
+</aside>
+<h2 id='update-2'>Update</h2><pre class="highlight shell tab-shell"><code>curl -X PATCH <span class="s2">"http://138.197.190.67/api/v1.0/notes/1"</span> -F <span class="nv">title</span><span class="o">=</span><span class="s2">"New title"</span> <span class="nv">content</span><span class="o">=</span><span class="s2">"New content"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Title"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Content"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 08:56:11"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-10 11:23:35"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint updates the note with given id in url and returns updated note&#39;s info.</p>
+<h3 id='http-request-12'>HTTP Request</h3>
+<p><code>PATCH http://138.197.190.67/api/v1.0/notes/{ID}</code></p>
+<h3 id='query-parameters-11'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>false</td>
+<td>Note title (optional, max 255 character)</td>
+</tr>
+<tr>
+<td>content</td>
+<td> true</td>
+<td>Note content (required)</td>
+</tr>
+</tbody></table>
+<h2 id='delete-3'> Delete</h2><pre class="highlight shell tab-shell"><code>curl -X DELETE <span class="s2">"http://138.197.190.67/api/v1.0/notes/2"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint deletes the note with given id in url.</p>
+<h3 id='http-request-13'>HTTP Request</h3>
+<p><code>DELETE http://138.197.190.67/api/v1.0/notes/{ID}</code></p>
+
+<aside class="notice">
+If the note already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a note"</b>
 </aside>
 <h1 id='errors'>Errors</h1>
 <p>The SafeLock API uses the following error codes:</p>
