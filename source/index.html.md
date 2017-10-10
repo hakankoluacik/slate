@@ -367,7 +367,7 @@ album_id | true | Album id that needs to be saved in
 photo_file | true | Photo file
 
 <aside class="notice">
-There is a special validation for photo_file. If the file already uploaded before then the <b>"status"</b> key will <b>"fail"</b>. And <b>"data"</b> key will contain "You already uploaded this photo before" message. 
+There is a special validation for photo_file. If the file already uploaded before then the <b>"status"</b> key will <b>"fail"</b>. And <b>"data"</b> key will contain "You already uploaded this photo before" message.
 </aside>
 
 ## Delete
@@ -393,4 +393,203 @@ This endpoint deletes the photo with given id in url.
 
 <aside class="notice">
 If the photo already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a photo"</b>
+</aside>
+
+# Notes
+
+## Create
+
+```shell
+curl -X POST "http://138.197.190.67/api/v1.0/notes" -F title="My passwords" -F content="Facebook 123456"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": {
+        "title": "My passwords",
+        "content": "Facebook 123456",
+        "user_id": 1,
+        "updated_at": "2017-10-10 07:31:16",
+        "created_at": "2017-10-10 07:31:16",
+        "id": 5
+    }
+}
+```
+
+This endpoint creates a new note and returns the new note's information if creation was successful.
+
+### HTTP Request
+
+`POST http://138.197.190.67/api/v1.0/notes`
+
+### Query Parameters
+
+Parameter | required | Description
+--------- | ------- | -----------
+title | false | The note's title (optional, max 255 character)
+content | true | Note content (required)
+
+
+<aside class="notice">
+There is a validation for <b>content</b> field. <b>content</b> fields is required. If any validation error occurs then <b>"status"</b> key for response will contain <b>"fail"</b> value and <b>"data"</b> key will contain correspond field names with description about the validation errors as an array. <b>title</b> field is optional, there is no validation for this field. If title field is not defined, then the value of title in creation response will contain <i><b>null</b></i>.
+</aside>
+
+## Read
+
+### Get All Notes of User
+
+This will return all notes of the user. This endpoint's purpose is listing notes on user side. For this purpose,
+note <b>"content"</b> field will be limited with 35 characters in response. This 35 character content field can be used for tableview title or you can use <b>"title"</b> field as tableview title. But remember title field is optional and it can be null.
+
+```shell
+curl -X GET "http://138.197.190.67/api/v1.0/notes"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "title": "Lorem ipsum",
+            "content": "Lorem ipsum dolor sit amet, consect...",
+            "created_at": "2017-10-10 08:55:57",
+            "updated_at": "2017-10-10 08:55:57"
+        },
+        {
+            "id": 2,
+            "user_id": 1,
+            "title": "Proin facilisis",
+            "content": "Proin facilisis tellus lacus, ac lo...",
+            "created_at": "2017-10-10 08:56:11",
+            "updated_at": "2017-10-10 08:56:11"
+        },
+        {
+            "id": 3,
+            "user_id": 1,
+            "title": null,
+            "content": "Phasellus nec ex volutpat, euismod ...",
+            "created_at": "2017-10-10 08:56:23",
+            "updated_at": "2017-10-10 08:56:23"
+        }
+    ]
+}
+```
+
+### HTTP Request
+
+`GET http://138.197.190.67/api/v1.0/notes`
+
+### Query Parameters
+none
+
+<aside class="notice">
+If the user doesn't have any notes then response <b>data</b> key will contain an empty array (<b>[]</b>) and <b>"status"</b> key will be <b>"success"</b> Therefore title field can be <b>null</b>. Because this field is optional when creating note.
+</aside>
+
+
+
+### Get Specific Note of User
+
+This will return specific note of user.
+
+```shell
+curl -X GET "http://138.197.190.67/api/v1.0/notes/{ID}"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": {
+        "id": 2,
+        "user_id": 1,
+        "title": "Proin facilisis",
+        "content": "Proin facilisis tellus lacus, ac lobortis ipsum euismod vel. Nullam dolor augue, lobortis ut enim nec, blandit blandit dui. Nullam tincidunt lacinia purus, quis rutrum mauris facilisis in. ",
+        "created_at": "2017-10-10 08:56:11",
+        "updated_at": "2017-10-10 08:56:11"
+    }
+}
+```
+
+### HTTP Request
+
+`GET http://138.197.190.67/api/v1.0/notes/{ID}`
+
+### Query Parameters
+none
+
+<aside class="notice">
+If the note doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a note"</b>
+</aside>
+
+## Update
+
+```shell
+curl -X PATCH "http://138.197.190.67/api/v1.0/notes/1" -F title="New title" content="New content"
+```
+
+> The above command returns JSON structured like this:
+
+
+```json
+{
+    "status": "success",
+    "data": {
+        "id": 2,
+        "user_id": 1,
+        "title": "New Title",
+        "content": "New Content",
+        "created_at": "2017-10-10 08:56:11",
+        "updated_at": "2017-10-10 11:23:35"
+    }
+}
+```
+
+This endpoint updates the note with given id in url and returns updated note's info.
+
+
+### HTTP Request
+
+`PATCH http://138.197.190.67/api/v1.0/notes/{ID}`
+
+### Query Parameters
+
+Parameter | required | Description
+--------- | ------- | -----------
+title | false | Note title (optional, max 255 character)
+content | true | Note content (required)
+
+
+##Delete
+
+
+```shell
+curl -X DELETE "http://138.197.190.67/api/v1.0/notes/2"
+````
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": null
+}
+```
+
+This endpoint deletes the note with given id in url.
+
+### HTTP Request
+
+`DELETE http://138.197.190.67/api/v1.0/notes/{ID}`
+
+<aside class="notice">
+If the note already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a note"</b>
 </aside>
