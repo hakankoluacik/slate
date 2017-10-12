@@ -273,7 +273,18 @@
                     <a href="#update-2" class="toc-h2 toc-link" data-title="Notes">Update</a>
                   </li>
                   <li>
-                    <a href="#delete-3" class="toc-h2 toc-link" data-title="Notes"> Delete</a>
+                    <a href="#delete-3" class="toc-h2 toc-link" data-title="Notes">Delete</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#settings" class="toc-h1 toc-link" data-title="Settings">Settings</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#change-passcode" class="toc-h2 toc-link" data-title="Settings"> Change Passcode</a>
+                  </li>
+                  <li>
+                    <a href="#set-fake-passcode" class="toc-h2 toc-link" data-title="Settings"> Set Fake Passcode</a>
                   </li>
               </ul>
           </li>
@@ -745,7 +756,7 @@ If the user doesn't have any notes then response <b>data</b> key will contain an
 <aside class="notice">
 If the note doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a note"</b>
 </aside>
-<h2 id='update-2'>Update</h2><pre class="highlight shell tab-shell"><code>curl -X PATCH <span class="s2">"http://138.197.190.67/api/v1.0/notes/1"</span> -F <span class="nv">title</span><span class="o">=</span><span class="s2">"New title"</span> <span class="nv">content</span><span class="o">=</span><span class="s2">"New content"</span>
+<h2 id='update-2'>Update</h2><pre class="highlight shell tab-shell"><code>curl -X PATCH <span class="s2">"http://138.197.190.67/api/v1.0/notes/1"</span> -F <span class="nv">title</span><span class="o">=</span><span class="s2">"New title"</span> -F <span class="nv">content</span><span class="o">=</span><span class="s2">"New content"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -784,7 +795,7 @@ If the note doesn't exist then response <b>"status"</b> key will <b>"fail"</b> a
 <td>Note content (required)</td>
 </tr>
 </tbody></table>
-<h2 id='delete-3'> Delete</h2><pre class="highlight shell tab-shell"><code>curl -X DELETE <span class="s2">"http://138.197.190.67/api/v1.0/notes/2"</span>
+<h2 id='delete-3'>Delete</h2><pre class="highlight shell tab-shell"><code>curl -X DELETE <span class="s2">"http://138.197.190.67/api/v1.0/notes/2"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -801,6 +812,70 @@ If the note doesn't exist then response <b>"status"</b> key will <b>"fail"</b> a
 <aside class="notice">
 If the note already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a note"</b>
 </aside>
+<h1 id='settings'>Settings</h1><h2 id='change-passcode'> Change Passcode</h2>
+<p>This endpoint will change the passcode of user. First it will check the <b>current_passcode</b> if it is correct then it will set <b>new_passcode</b> parameter as passcode.</p>
+<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"http://138.197.190.67/api/v1.0/settings/change_passcode"</span> -F <span class="nv">current_passcode</span><span class="o">=</span><span class="s2">"1111"</span> -F <span class="nv">new_passcode</span><span class="o">=</span><span class="s2">"1234"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-14'>HTTP Request</h3>
+<p><code>POST http://138.197.190.67/api/v1.0/settings/change_passcode</code></p>
+<h3 id='query-parameters-12'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>current_passcode</td>
+<td>true</td>
+<td>User&#39;s current passcode</td>
+</tr>
+<tr>
+<td>new_passcode</td>
+<td> true</td>
+<td>User&#39;s new passcode</td>
+</tr>
+</tbody></table>
+<h2 id='set-fake-passcode'> Set Fake Passcode</h2>
+<p>This endpoint will set the fake passcode of user. First it will check the <b>current_passcode</b> if it is correct then it will set <b>fake_passcode</b> parameter as fake passcode.</p>
+<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"http://138.197.190.67/api/v1.0/settings/set_fake_passcode"</span> -F <span class="nv">current_passcode</span><span class="o">=</span><span class="s2">"1234"</span> -F <span class="nv">fake_passcode</span><span class="o">=</span><span class="s2">"3333"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-15'>HTTP Request</h3>
+<p><code>POST http://138.197.190.67/api/v1.0/settings/set_fake_passcode</code></p>
+<h3 id='query-parameters-13'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>current_passcode</td>
+<td>true</td>
+<td>User&#39;s current passcode</td>
+</tr>
+<tr>
+<td>fake_passcode</td>
+<td> true</td>
+<td>User&#39;s new fake passcode</td>
+</tr>
+</tbody></table>
 <h1 id='errors'>Errors</h1>
 <p>The SafeLock API uses the following error codes:</p>
 
