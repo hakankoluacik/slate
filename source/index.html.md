@@ -533,7 +533,7 @@ If the note doesn't exist then response <b>"status"</b> key will <b>"fail"</b> a
 ## Update
 
 ```shell
-curl -X PATCH "http://138.197.190.67/api/v1.0/notes/1" -F title="New title" content="New content"
+curl -X PATCH "http://138.197.190.67/api/v1.0/notes/1" -F title="New title" -F content="New content"
 ```
 
 > The above command returns JSON structured like this:
@@ -568,7 +568,7 @@ title | false | Note title (optional, max 255 character)
 content | true | Note content (required)
 
 
-##Delete
+## Delete
 
 
 ```shell
@@ -593,3 +593,60 @@ This endpoint deletes the note with given id in url.
 <aside class="notice">
 If the note already doesn't exist then response <b>"status"</b> key will <b>"fail"</b> and <b>"data"</b> key will contain <b>"There is no such a note"</b>
 </aside>
+
+# Settings
+
+## Change Passcode
+
+This endpoint will change the passcode of user. First it will check the <b>current_passcode</b> if it is correct then it will set <b>new_passcode</b> parameter as passcode.
+
+```shell
+curl -X POST "http://138.197.190.67/api/v1.0/settings/change_passcode" -F current_passcode="1111" -F new_passcode="1234"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": []
+}
+```
+
+### HTTP Request
+
+`POST http://138.197.190.67/api/v1.0/settings/change_passcode`
+
+### Query Parameters
+Parameter | required | Description
+--------- | ------- | -----------
+current_passcode | true | User's current passcode
+new_passcode | true | User's new passcode
+
+
+## Set Fake Passcode
+
+This endpoint will set the fake passcode of user. First it will check the <b>current_passcode</b> if it is correct then it will set <b>fake_passcode</b> parameter as fake passcode.
+
+```shell
+curl -X POST "http://138.197.190.67/api/v1.0/settings/set_fake_passcode" -F current_passcode="1234" -F fake_passcode="3333"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": []
+}
+```
+
+### HTTP Request
+
+`POST http://138.197.190.67/api/v1.0/settings/set_fake_passcode`
+
+### Query Parameters
+Parameter | required | Description
+--------- | ------- | -----------
+current_passcode | true | User's current passcode
+fake_passcode | true | User's new fake passcode
