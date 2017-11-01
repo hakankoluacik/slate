@@ -650,3 +650,35 @@ Parameter | required | Description
 --------- | ------- | -----------
 current_passcode | true | User's current passcode
 fake_passcode | true | User's new fake passcode
+
+## Passcode Reminder
+
+```shell
+curl -X POST "http://138.197.190.67/api/v1.0/service/remind_passcode" -F email="hakan@hakan.com"
+```
+
+> The above command returns JSON structured like this:
+
+
+```json
+{
+"status": "success",
+"data": "The passcode has been sent to your email."
+}
+```
+
+This endpoint sends current passcode of user to user's email.
+
+
+### HTTP Request
+
+`POST http://138.197.190.67/api/v1.0/service/remind_passcode`
+
+### Query Parameters
+
+Parameter | required | Description
+--------- | ------- | -----------
+email | true | Email of user
+
+
+
