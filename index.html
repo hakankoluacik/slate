@@ -286,6 +286,9 @@
                   <li>
                     <a href="#set-fake-passcode" class="toc-h2 toc-link" data-title="Settings"> Set Fake Passcode</a>
                   </li>
+                  <li>
+                    <a href="#passcode-reminder" class="toc-h2 toc-link" data-title="Settings">Passcode Reminder</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -874,6 +877,33 @@ If the note already doesn't exist then response <b>"status"</b> key will <b>"fai
 <td>fake_passcode</td>
 <td> true</td>
 <td>User&#39;s new fake passcode</td>
+</tr>
+</tbody></table>
+<h2 id='passcode-reminder'>Passcode Reminder</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"http://138.197.190.67/api/v1.0/service/remind_passcode"</span> -F <span class="nv">email</span><span class="o">=</span><span class="s2">"hakan@hakan.com"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+</span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The passcode has been sent to your email."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint sends current passcode of user to user&#39;s email.</p>
+<h3 id='http-request-16'>HTTP Request</h3>
+<p><code>POST http://138.197.190.67/api/v1.0/service/remind_passcode</code></p>
+<h3 id='query-parameters-14'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>true</td>
+<td>Email of user</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
